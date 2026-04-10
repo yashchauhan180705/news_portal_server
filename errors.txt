@@ -1,0 +1,14 @@
+should register a new user successfully
+Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveProperty[2m([22m[32mpath[39m[2m, [22m[32mvalue[39m[2m)[22m
+
+[1mMatcher error[22m: [31mreceived[39m value must not be null nor undefined
+
+Received has value: [31mundefined[39m
+    at Object.toHaveProperty (E:\Yash\New folder\server\test\auth.test.js:81:29)
+    at processTicksAndRejections (node:internal/process/task_queues:103:5)
+
+should login with correct credentials and return tokens
+TypeError: Cannot read properties of undefined (reading 'email')
+    at Object.email (E:\Yash\New folder\server\test\auth.test.js:139:28)
+    at processTicksAndRejections (node:internal/process/task_queues:103:5)
+
