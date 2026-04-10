@@ -7,3 +7,9 @@ debug-mongo.js
 atlas_uri.txt
 temp-server.pid
 temp-server-*.log
+errors.txt
+test_final.txt
+test_out.txt
+test_out2.txt
+test_output.txt
+test_results.json
