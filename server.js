@@ -35,6 +35,8 @@ const allowedOrigins = (process.env.CLIENT_URLS || process.env.CLIENT_URL || '')
   .map((origin) => origin.trim())
   .filter(Boolean);
 
+console.log('Environment CLIENT_URL:', process.env.CLIENT_URL);
+console.log('Environment CLIENT_URLS:', process.env.CLIENT_URLS);
 console.log('Allowed CORS origins:', allowedOrigins);
 
 const corsOptions = {
@@ -42,15 +44,27 @@ const corsOptions = {
     console.log('CORS request from origin:', origin);
     // Allow non-browser clients and same-origin requests.
     if (!origin) return callback(null, true);
-    if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+    
+    // If no origins configured, allow all (for initial setup)
+    if (allowedOrigins.length === 0) {
+      console.log('No CLIENT_URL configured - allowing all origins');
       return callback(null, true);
     }
+    
+    // Check if origin is in allowed list
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    
     console.log('CORS blocked for origin:', origin);
+    console.log('Allowed origins are:', allowedOrigins);
     return callback(new Error(`CORS blocked for origin: ${origin}`));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  maxAge: 600,
 };
 
 // Setup security middleware
