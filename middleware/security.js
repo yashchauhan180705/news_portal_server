@@ -3,11 +3,13 @@ const mongoSanitize = require('express-mongo-sanitize');
 
 // Setup security middleware
 const setupSecurity = (app) => {
-  // Set security HTTP headers
+  // Set security HTTP headers - configure to allow CORS
   app.use(
     helmet({
       crossOriginResourcePolicy: { policy: 'cross-origin' },
       crossOriginEmbedderPolicy: false,
+      // Don't override CORS headers
+      crossOriginOpenerPolicy: false,
     })
   );
 
