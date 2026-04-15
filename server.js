@@ -67,11 +67,13 @@ const corsOptions = {
   maxAge: 600,
 };
 
+// IMPORTANT: Apply CORS BEFORE security middleware
+app.use(cors(corsOptions));
+
 // Setup security middleware
 setupSecurity(app);
 
 // Middleware
-app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
