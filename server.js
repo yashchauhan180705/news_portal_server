@@ -35,16 +35,22 @@ const allowedOrigins = (process.env.CLIENT_URLS || process.env.CLIENT_URL || '')
   .map((origin) => origin.trim())
   .filter(Boolean);
 
+console.log('Allowed CORS origins:', allowedOrigins);
+
 const corsOptions = {
   origin(origin, callback) {
+    console.log('CORS request from origin:', origin);
     // Allow non-browser clients and same-origin requests.
     if (!origin) return callback(null, true);
     if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
+    console.log('CORS blocked for origin:', origin);
     return callback(new Error(`CORS blocked for origin: ${origin}`));
   },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 // Setup security middleware
